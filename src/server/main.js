@@ -9,10 +9,12 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import swapiSchema from '../schema';
+import cors from 'cors';
 
 const app = express();
 
-// Requests to /graphql redirect to /
+app.use(cors());
+
 app.all('/graphql', (req, res) => res.redirect('/'));
 
 app.use(
@@ -24,7 +26,7 @@ app.use(
 );
 
 // Listen for incoming HTTP requests
-const listener = app.listen(() => {
+const listener = app.listen('3030', () => {
   let host = listener.address().address;
   if (host === '::') {
     host = 'localhost';
